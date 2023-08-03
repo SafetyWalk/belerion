@@ -60,3 +60,11 @@ Step untuk repository backend <br>
   Email: eugeniusms@gmail.com
   Password: admin123
   ```
+
+## URLs
+
+Service | URL | Type
+--- | --- | ---
+Admin | `localhost:8000/admin` | Special 
+Authentication | `localhost:8000/authentication/manual-user/` | GET, POST 
+Authentication | `localhost:8000/authentication/google-user/` | GET, POST

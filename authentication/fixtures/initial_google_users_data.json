@@ -1,0 +1,13 @@
+[
+  {
+    "model": "authentication.googleuser",
+    "pk": 1,
+    "fields": {
+      "google_uid": "1",
+      "email": "eugeniusms@gmail.com",
+      "name": "Eugenius Mario",
+      "mobile_number": "0123456789",
+      "photo_url": "https://lh3.googleusercontent.com/a/AAcHTtemk3r5u4n_ydV0VGKpvTguJUy1gvT4I6f2wFKsy5OWgPI=s96-c"
+    }
+  }
+]

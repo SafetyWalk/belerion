@@ -1,0 +1,15 @@
+[
+  {
+    "model": "authentication.manualuser",
+    "pk": 1,
+    "fields": {
+      "username": "eugeniusms",
+      "email": "eugeniusms@gmail.com",
+      "password": "Tes123Tes",
+      "first_name": "Eugenius",
+      "last_name": "Mario",
+      "mobile_number": "0123456789",
+      "photo_url": "https://lh3.googleusercontent.com/a/AAcHTtemk3r5u4n_ydV0VGKpvTguJUy1gvT4I6f2wFKsy5OWgPI=s96-c"
+    }
+  }
+]

@@ -46,3 +46,14 @@ Step untuk repository backend <br>
   ```bash
   $ python manage.py runserver
   ```
+
+## Development Admin
+
+
+- Go to `localhost:8000/admin`
+- Login with
+  ```
+  Username: admin
+  Email: eugeniusms@gmail.com
+  Password: admin123
+  ```

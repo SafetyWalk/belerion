@@ -47,10 +47,13 @@ Step untuk repository backend <br>
   $ python manage.py runserver
   ```
 
-## Development Admin
+## Development
 
-
-- Go to `localhost:8000/admin`
+- Run this script for auto migrate, populate data, and runserver 
+  ```bash
+  sh auto.sh
+  ```
+- Admin, Go to `localhost:8000/admin`
 - Login with
   ```
   Username: admin

@@ -63,10 +63,13 @@ class ManualUserLoginAPIView(generics.ListAPIView):
                     "photo_url": user.photo_url
                 }
                 return Response({
-                    "message": "Login success", "data": user_data
+                    "message": "Login success", 
+                    "status": "SUCCESS",
+                    "data": user_data
                 })
         return Response({
-            "message": "Invalid email or password."
+            "message": "Invalid email or password",
+            "status": "FAILED"
         })
 
 class GoogleUserLoginAPIView(generics.ListAPIView):
@@ -91,10 +94,13 @@ class GoogleUserLoginAPIView(generics.ListAPIView):
                     "photo_url": user.photo_url
                 }
                 return Response({
-                    "message": "Login success", "data": user_data
+                    "message": "Login success", 
+                    "status": "SUCCESS",
+                    "data": user_data
                 })
         return Response({
-            "message": "Invalid email or password."
+            "message": "Invalid email or google uid",
+            "status": "FAILED"
         })
 
 class ManualUserEditPasswordAPIView(generics.ListAPIView):
@@ -113,11 +119,13 @@ class ManualUserEditPasswordAPIView(generics.ListAPIView):
                 user.password = serializer.data['password']
                 user.save()
                 return Response({
-                    "message": "Password updated successfully.",
+                    "message": "Password updated successfully",
+                    "status": "SUCCESS",
                     "data": {
                         "new_password": serializer.data['password']
                     }
                 })
         return Response({
-            "message": "Invalid email or password."
+            "message": "Invalid email or password",
+            "status": "FAILED"
         })

@@ -23,4 +23,5 @@ urlpatterns = [
     # SafeWalk Service
     path('contact/', include('contact.urls')),
     path('maps/', include('maps.urls')),
+    path('profile/', include('user_profile.urls')),
 ]

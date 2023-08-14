@@ -19,9 +19,9 @@ from django.urls import path, include
 urlpatterns = [
     # Authentication & Admin Service
     path("admin/", admin.site.urls),
-    path('authentication/', include('authentication.urls')),
+    path('api/v1/authentication/', include('authentication.urls')),
     # SafeWalk Service
-    path('contact/', include('contact.urls')),
-    path('maps/', include('maps.urls')),
-    path('profile/', include('user_profile.urls')),
+    path('api/v1/contact/', include('contact.urls')),
+    path('api/v1/maps/', include('maps.urls')),
+    path('api/v1/profile/', include('user_profile.urls')),
 ]

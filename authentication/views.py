@@ -8,7 +8,8 @@ from authentication.serializers import (
     ManualUserSerializer,
     GoogleUserSerializer,
     ManualUserLoginSerializer,
-    GoogleUserLoginSerializer
+    GoogleUserLoginSerializer,
+    ManualUserEditPasswordSerializer
 )
 
 class ManualUserAPIView(generics.ListAPIView):
@@ -61,8 +62,12 @@ class ManualUserLoginAPIView(generics.ListAPIView):
                     "mobile_number": user.mobile_number,
                     "photo_url": user.photo_url
                 }
-                return Response({"message": "Login success", "data": user_data})
-        return Response({"message": "Invalid email or password."})
+                return Response({
+                    "message": "Login success", "data": user_data
+                })
+        return Response({
+            "message": "Invalid email or password."
+        })
 
 class GoogleUserLoginAPIView(generics.ListAPIView):
     serializer_class = GoogleUserLoginSerializer
@@ -70,7 +75,7 @@ class GoogleUserLoginAPIView(generics.ListAPIView):
     def get_queryset(self):
         google_users = GoogleUser.objects.all()
         return google_users
-        
+
     def post(self, request, *args, **kwargs):
         serializer = GoogleUserLoginSerializer(data=request.data)
         if serializer.is_valid():
@@ -85,5 +90,34 @@ class GoogleUserLoginAPIView(generics.ListAPIView):
                     "mobile_number": user.mobile_number,
                     "photo_url": user.photo_url
                 }
-                return Response({"message": "Login success", "data": user_data})
-        return Response({"message": "Invalid email or password."})
+                return Response({
+                    "message": "Login success", "data": user_data
+                })
+        return Response({
+            "message": "Invalid email or password."
+        })
+
+class ManualUserEditPasswordAPIView(generics.ListAPIView):
+    serializer = ManualUserEditPasswordSerializer
+
+    def get_queryset(self):
+        manual_users = ManualUser.objects.all()
+        return manual_users
+    
+    def put(self, request, *args, **kwargs):
+        serializer = ManualUserEditPasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            # check if user exists
+            if ManualUser.objects.filter(email=serializer.data['email']).exists():
+                user = ManualUser.objects.get(email=serializer.data['email'])
+                user.password = serializer.data['password']
+                user.save()
+                return Response({
+                    "message": "Password updated successfully.",
+                    "data": {
+                        "new_password": serializer.data['password']
+                    }
+                })
+        return Response({
+            "message": "Invalid email or password."
+        })

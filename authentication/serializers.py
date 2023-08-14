@@ -23,3 +23,8 @@ class GoogleUserLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = GoogleUser
         fields = ['email', 'google_uid']
+
+class ManualUserEditPasswordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ManualUser
+        fields = ['email', 'password']

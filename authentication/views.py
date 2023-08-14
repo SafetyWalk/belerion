@@ -70,15 +70,20 @@ class GoogleUserLoginAPIView(generics.ListAPIView):
     def get_queryset(self):
         google_users = GoogleUser.objects.all()
         return google_users
-
+        
     def post(self, request, *args, **kwargs):
         serializer = GoogleUserLoginSerializer(data=request.data)
-        print(serializer.data)
         if serializer.is_valid():
             # check if user exists
-            # if user exists, return user
-            # if user does not exist, create user and return user
-            if GoogleUser.objects.filter(email=serializer.data['email']).exists():
-                return Response(serializer.data)
-            return Response(serializer.data)
-        return Response(serializer.errors)
+            if GoogleUser.objects.filter(email=serializer.data['email'], google_uid=serializer.data['google_uid']).exists():
+                user = GoogleUser.objects.get(email=serializer.data['email'], google_uid=serializer.data['google_uid'])
+                user_data = {
+                    "id": user.id,
+                    "email": user.email,
+                    "google_uid": user.google_uid,
+                    "name": user.name,
+                    "mobile_number": user.mobile_number,
+                    "photo_url": user.photo_url
+                }
+                return Response({"message": "Login success", "data": user_data})
+        return Response({"message": "Invalid email or password."})

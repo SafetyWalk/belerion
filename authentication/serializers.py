@@ -13,3 +13,13 @@ class GoogleUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = GoogleUser
         fields = '__all__'
+
+class ManualUserLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ManualUser
+        fields = ['email', 'password']
+
+class GoogleUserLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GoogleUser
+        fields = ['email', 'google_uid']

@@ -60,13 +60,8 @@ jobs:
         gcloud auth configure-docker
         docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
 
-    - name: SSH into GCP instance and deploy
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.GCE_INSTANCE_IP }}
-        username: ${{ secrets.GCE_SSH_USERNAME }}
-        key: ${{ secrets.GCE_SSH_PRIVATE_KEY }}
-        script: |
-          docker stop ${{ secrets.DOCKER_CONTAINER_NAME }} || true
-          docker rm ${{ secrets.DOCKER_CONTAINER_NAME }} || true
-          docker run -d --name ${{ secrets.DOCKER_CONTAINER_NAME }} -p 8000:8000 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
+    - name: Deploy Docker image on GCP instance
+      run: |
+        gcloud compute instances update-container ${{ secrets.GCE_INSTANCE_NAME }} \
+          --container-image ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest \
+          --zone ${{ secrets.GCE_INSTANCE_ZONE }}

@@ -68,3 +68,11 @@ Service | URL | Type
 Admin | `localhost:8000/admin` | Special 
 Authentication | `localhost:8000/authentication/manual-user/` | GET, POST 
 Authentication | `localhost:8000/authentication/google-user/` | GET, POST
+
+## Deployment
+
+- Create a new project in Google Cloud Platform
+- Activate Google SDK in your terminal
+- Create python virtual environment 'venv' that will be used for deployment, activate it, and install required requirements.txt
+- Run `gcloud init` in your terminal
+- Run `gcloud app deploy` in your terminal

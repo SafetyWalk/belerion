@@ -18,7 +18,7 @@ SECRET_KEY = "lRGMjsQqBOPeUZSDVCgVsmPISgPLkcBBPAsqvvKDSkGoRXKmnH"
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['https://*.railway.app','http://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app', 'https://*.vercel.app', 'http://*.127.0.0.1']
 CORS_ALLOW_ALL_ORIGINS=True
 
 CSRF_COOKIE_SECURE = True

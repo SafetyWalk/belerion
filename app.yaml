@@ -39,4 +39,4 @@ handlers:
 - url: /manage
   script: auto
 
-entrypoint: python manage.py makemigrations && python manage.py migrate && python manage.py loaddata initial_google_users_data.json
+entrypoint: python manage.py makemigrations && python manage.py migrate && python manage.py loaddata initial_users_data.json

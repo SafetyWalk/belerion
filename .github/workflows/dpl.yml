@@ -60,9 +60,6 @@ jobs:
         gcloud auth configure-docker
         docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
 
-    - name: Deploy Docker image on GCP instance
+    - name: Run Docker container
       run: |
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.GCE_SSH_PRIVATE_KEY }} ${{ secrets.GCE_SSH_USERNAME }}@${{ secrets.GCE_INSTANCE_IP }}
-        docker container rm -f ${{ secrets.DOCKER_CONTAINER_NAME }} || true &&
-        docker image rm -f ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest || true &&
-        docker run --name ${{ secrets.DOCKER_CONTAINER_NAME }} -d -p 80:8000 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
+        docker run -d -p 8000:8000 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest

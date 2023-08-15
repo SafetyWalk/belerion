@@ -84,10 +84,11 @@ WSGI_APPLICATION = "safewalk.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "HOST": "/cloudsql/safewalk-testing-ae:asia-southeast2:safewalk-testing-ae",
+        "NAME": "postgres",
         "USER": "postgres",
-        "PASSWORD": "postgres",
-        "NAME": "belerion-db"
+        "PASSWORD": "@*X2h@#h?p3sTAW",
+        "HOST": "db.odaymbyhovlxjyyqpmoo.supabase.co",
+        "PORT": "5432"
     }
 }
 

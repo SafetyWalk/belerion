@@ -43,7 +43,7 @@ jobs:
 
     - name: Push Docker image to Docker Hub
       run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
-
+      
   deploy:
     needs: publish
     runs-on: ubuntu-latest
@@ -62,6 +62,7 @@ jobs:
 
     - name: Deploy Docker image on GCP instance
       run: |
-        gcloud compute instances update-container ${{ secrets.GCE_INSTANCE_NAME }} \
-          --container-image ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest \
-          --zone ${{ secrets.GCE_INSTANCE_ZONE }}
+        ssh -o StrictHostKey ssh -o StrictHostKeyChecking=no -i ${{ secrets.GCE_SSH_PRIVATE_KEY }} ${{ secrets.GCE_SSH_USERNAME }}@${{ secrets.GCE_INSTANCE_IP }}
+        docker container rm -f ${{ secrets.DOCKER_CONTAINER_NAME }} || true &&
+        docker image rm -f ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest || true &&
+        docker run --name ${{ secrets.DOCKER_CONTAINER_NAME }} -d -p 80:8000 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest

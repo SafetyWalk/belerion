@@ -66,8 +66,17 @@ Step untuk repository backend <br>
 Service | URL | Type
 --- | --- | ---
 Admin | `localhost:8000/admin` | Special 
-Authentication | `localhost:8000/authentication/manual-user/` | GET, POST 
-Authentication | `localhost:8000/authentication/google-user/` | GET, POST
+Authentication | `{{url}}/api/v1/authentication/manual-user/` | GET, POST 
+Authentication | `{{url}}/api/v1/authentication/google-user/` | GET, POST
+Authentication | `{{url}}/api/v1/authentication/manual-user/login/` | POST
+Authentication | `{{url}}/api/v1/authentication/google-user/login/` | POST
+Authentication | `{{url}}/api/v1/authentication/manual-user/edit/password/` | PUT
+Profile | `{{url}}/api/v1/profile/manual-user/` | GET
+Profile | `{{url}}/api/v1/profile/google-user/` | GET
+Contact | `{{url}}/api/v1/contact/manual-user/create/` | POST
+Contact | `{{url}}/api/v1/contact/google-user/create/` | POST
+Contact | `{{url}}/api/v1/contact/manual-user/` | POST
+Contact | `{{url}}/api/v1/contact/google-user/` | POST
 
 ## Deployment
 

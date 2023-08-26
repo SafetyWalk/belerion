@@ -279,3 +279,35 @@ class ManualUserContactDeleteAPIView(generics.ListAPIView):
             "message": "Invalid email or password",
             "status": "FAILED"
         })
+
+class GoogleUserContactDeleteAPIView(generics.ListAPIView):
+    serializer_class = GoogleUserContactSerializer
+
+    def get_queryset(self):
+        google_users = GoogleUser.objects.all()
+        return google_users
+
+    def delete(self, request, *args, **kwargs):
+        serializer = GoogleUserLoginSerializer(data=request.data)
+        if serializer.is_valid():
+            # check if user exists
+            if GoogleUser.objects.filter(email=serializer.data['email'], google_uid=serializer.data['google_uid']).exists():
+                user = GoogleUser.objects.get(email=serializer.data['email'], google_uid=serializer.data['google_uid'])
+                # check if contact exists
+                if Contact.objects.filter(id=request.data['contact_id']).exists():
+                    contact = Contact.objects.get(id=request.data['contact_id'])
+                    if contact in user.contacts.all():
+                        # delete contact
+                        contact.delete()
+                        return Response({
+                            "message": "Delete contact success", 
+                            "status": "SUCCESS"
+                        })
+                return Response({
+                    "message": "Contact does not belong to user",
+                    "status": "FAILED"
+                })
+        return Response({
+            "message": "Invalid email or google uid",
+            "status": "FAILED"
+        })

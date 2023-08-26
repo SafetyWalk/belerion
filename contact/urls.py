@@ -7,6 +7,7 @@ from contact.views import (
     ManualUserContactEditAPIView,
     GoogleUserContactEditAPIView,
     ManualUserContactDeleteAPIView,
+    GoogleUserContactDeleteAPIView
 )
 
 app_name = 'contact'
@@ -19,4 +20,5 @@ urlpatterns = [
     path('manual-user/edit/', ManualUserContactEditAPIView.as_view(), name='path_manual_user_edit_contact'),
     path('google-user/edit/', GoogleUserContactEditAPIView.as_view(), name='path_google_user_edit_contact'),
     path('manual-user/delete/', ManualUserContactDeleteAPIView.as_view(), name='path_manual_user_delete_contact'),
+    path('google-user/delete/', GoogleUserContactDeleteAPIView.as_view(), name='path_google_user_delete_contact')
 ]

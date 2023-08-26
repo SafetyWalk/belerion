@@ -221,23 +221,28 @@ class GoogleUserContactEditAPIView(generics.ListAPIView):
                 # check if contact exists
                 if Contact.objects.filter(id=request.data['contact_id']).exists():
                     contact = Contact.objects.get(id=request.data['contact_id'])
-                    # update contact
-                    contact.name = request.data['name']
-                    contact.contact_email = request.data['contact_email']
-                    contact.mobile_number = request.data['mobile_number']
-                    contact.photo_url = request.data['photo_url']
-                    contact.save()
-                    return Response({
-                        "message": "Edit contact success", 
-                        "status": "SUCCESS",
-                        "data": {
-                            "id": contact.id,
-                            "name": contact.name,
-                            "email": contact.contact_email,
-                            "mobile_number": contact.mobile_number,
-                            "photo_url": contact.photo_url
-                        }
-                    })
+                    if contact in user.contacts.all():
+                        # update contact
+                        contact.name = request.data['name']
+                        contact.contact_email = request.data['contact_email']
+                        contact.mobile_number = request.data['mobile_number']
+                        contact.photo_url = request.data['photo_url']
+                        contact.save()
+                        return Response({
+                            "message": "Edit contact success", 
+                            "status": "SUCCESS",
+                            "data": {
+                                "id": contact.id,
+                                "name": contact.name,
+                                "email": contact.contact_email,
+                                "mobile_number": contact.mobile_number,
+                                "photo_url": contact.photo_url
+                            }
+                        })
+                return Response({
+                    "message": "Contact does not belong to user",
+                    "status": "FAILED"
+                })
         return Response({
             "message": "Invalid email or google uid",
             "status": "FAILED"

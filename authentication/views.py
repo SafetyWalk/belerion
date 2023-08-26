@@ -26,13 +26,18 @@ class ManualUserAPIView(generics.ListAPIView):
         if serializer.is_valid():
             user_email = serializer.validated_data.get('email')
             # check if exists
-            if not ManualUser.objects.filter(email=user_email).exists():
-                serializer.save()
-                return Response(serializer.data)
-            return Response({
-                "message": "User with email already exists",
+            if ManualUser.objects.filter(email=user_email).exists():
+                return Response({
+                "message": "You already have an account, try loggin in with your email and password",
                 "status": "FAILED"
             })
+            if GoogleUser.objects.filter(email=user_email).exists():
+                return Response({
+                "message": "You already have an account, try logging in with google",
+                "status": "FAILED"
+            })
+            serializer.save()
+            return Response(serializer.data)
         return Response(serializer.errors)
 
 class GoogleUserAPIView(generics.ListAPIView):
@@ -47,13 +52,18 @@ class GoogleUserAPIView(generics.ListAPIView):
         if serializer.is_valid():
             user_email = serializer.validated_data.get('email')
             # check if exists
-            if not GoogleUser.objects.filter(email=user_email).exists():
-                serializer.save()
-                return Response(serializer.data)
-            return Response({
-                "message": "User with email already exists",
+            if GoogleUser.objects.filter(email=user_email).exists():
+                return Response({
+                "message": "You already have an account, try logging in with google",
                 "status": "FAILED"
             })
+            if ManualUser.objects.filter(email=user_email).exists():
+                return Response({
+                "message": "You already have an account, try logging in with your email and password",
+                "status": "FAILED"
+            })
+            serializer.save()
+            return Response(serializer.data)
         return Response(serializer.errors)
 
 class ManualUserLoginAPIView(generics.ListAPIView):

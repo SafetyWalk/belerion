@@ -16,3 +16,4 @@ urlpatterns = [
     path('google-user/login/', GoogleUserLoginAPIView.as_view(), name='path_google_user_login'),
     path('manual-user/edit/password/', ManualUserEditPasswordAPIView.as_view(), name='path_manual_user_edit_password')
 ]
+//

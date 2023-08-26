@@ -68,11 +68,11 @@ Service | Description | URL | Method | Payload
 Admin | Admin Page | `{{url}}/admin` | - | -
 Authentication | Register Manual User | `{{url}}/api/v1/authentication/manual-user/` | GET, POST | -
 Authentication | Register Google User | `{{url}}/api/v1/authentication/google-user/` | GET, POST | -
-Authentication | Login Manual User | `{{url}}/api/v1/authentication/manual-user/login/` | POST | `{ "email": "string", "password": "string" }`
-Authentication | Login Google User | `{{url}}/api/v1/authentication/google-user/login/` | POST | `{ "email": "string", "google_uid": "string" }`
-Authentication | Edit Password Manual User | `{{url}}/api/v1/authentication/manual-user/edit/password/` | PUT | `{ "email": "string", "password": "string" }`
-Profile | Get Profile Manual User | `{{url}}/api/v1/profile/manual-user/` | GET | `{ "email": "string", "password": "string" }`
-Profile | Get Profile Google User | `{{url}}/api/v1/profile/google-user/` | GET | `{ "email": "string", "google_uid": "string" }`
+Authentication | Login Manual User | `{{url}}/api/v1/authentication/manual-user/login/` | POST | -
+Authentication | Login Google User | `{{url}}/api/v1/authentication/google-user/login/` | POST | -
+Authentication | Edit Password Manual User | `{{url}}/api/v1/authentication/manual-user/edit/password/` | PUT | -
+Profile | Get Profile Manual User | `{{url}}/api/v1/profile/manual-user/` | GET | -
+Profile | Get Profile Google User | `{{url}}/api/v1/profile/google-user/` | GET | -
 Profile | Edit Profile Manual User | `{{url}}/api/v1/profile/manual-user/edit/` | PUT | -
 Profile | Edit Profile Google User | `{{url}}/api/v1/profile/google-user/edit/` | PUT | -
 Contact | Create Contact Manual User | `{{url}}/api/v1/contact/manual-user/create/` | POST | -

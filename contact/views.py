@@ -176,7 +176,49 @@ class ManualUserContactEditAPIView(generics.ListAPIView):
             if ManualUser.objects.filter(email=serializer.data['email'], password=serializer.data['password']).exists():
                 user = ManualUser.objects.get(email=serializer.data['email'], password=serializer.data['password'])
                 # check if contact exists
-                # get [id] from url <int:pk>
+                if Contact.objects.filter(id=request.data['contact_id']).exists():
+                    contact = Contact.objects.get(id=request.data['contact_id'])
+                    if contact in user.contacts.all():
+                        # update contact
+                        contact.name = request.data['name']
+                        contact.contact_email = request.data['contact_email']
+                        contact.mobile_number = request.data['mobile_number']
+                        contact.photo_url = request.data['photo_url']
+                        contact.save()
+                        return Response({
+                            "message": "Edit contact success", 
+                            "status": "SUCCESS",
+                            "data": {
+                                "id": contact.id,
+                                "name": contact.name,
+                                "email": contact.contact_email,
+                                "mobile_number": contact.mobile_number,
+                                "photo_url": contact.photo_url
+                            }
+                        })
+                return Response({
+                    "message": "Contact does not belong to user",
+                    "status": "FAILED"
+                })
+        return Response({
+            "message": "Invalid email or password",
+            "status": "FAILED"
+        })
+
+class GoogleUserContactEditAPIView(generics.ListAPIView):
+    serializer_class = GoogleUserContactSerializer
+
+    def get_queryset(self):
+        google_users = GoogleUser.objects.all()
+        return google_users
+
+    def put(self, request, *args, **kwargs):
+        serializer = GoogleUserLoginSerializer(data=request.data)
+        if serializer.is_valid():
+            # check if user exists
+            if GoogleUser.objects.filter(email=serializer.data['email'], google_uid=serializer.data['google_uid']).exists():
+                user = GoogleUser.objects.get(email=serializer.data['email'], google_uid=serializer.data['google_uid'])
+                # check if contact exists
                 if Contact.objects.filter(id=request.data['contact_id']).exists():
                     contact = Contact.objects.get(id=request.data['contact_id'])
                     # update contact
@@ -197,6 +239,6 @@ class ManualUserContactEditAPIView(generics.ListAPIView):
                         }
                     })
         return Response({
-            "message": "Invalid email or password",
+            "message": "Invalid email or google uid",
             "status": "FAILED"
         })

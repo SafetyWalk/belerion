@@ -1,4 +1,7 @@
 from django.db import models
+from contact.models import (
+    Contact
+)
 
 class ManualUser(models.Model):
     username = models.CharField(max_length=200)
@@ -8,6 +11,7 @@ class ManualUser(models.Model):
     last_name = models.CharField(max_length=200)
     mobile_number = models.CharField(max_length=200)
     photo_url = models.CharField(max_length=500)
+    contacts = models.ManyToManyField(Contact)
 
     def __str__(self):
         return self.email
@@ -22,7 +26,8 @@ class ManualUser(models.Model):
                 first_name='Eugenius',
                 last_name='Mario', 
                 mobile_number='0123456789',
-                photo_url = 'https://lh3.googleusercontent.com/a/AAcHTtemk3r5u4n_ydV0VGKpvTguJUy1gvT4I6f2wFKsy5OWgPI=s96-c'
+                photo_url = 'https://lh3.googleusercontent.com/a/AAcHTtemk3r5u4n_ydV0VGKpvTguJUy1gvT4I6f2wFKsy5OWgPI=s96-c',
+                contacts = Contact.objects.all()
             ),
         )
         return user.pk
@@ -33,6 +38,7 @@ class GoogleUser(models.Model):
     name = models.CharField(max_length=200)
     mobile_number = models.CharField(max_length=200)
     photo_url = models.CharField(max_length=200)
+    contacts = models.ManyToManyField(Contact)
 
     def __str__(self):
         return self.email
@@ -45,7 +51,8 @@ class GoogleUser(models.Model):
                 email='eugeniusms@gmail.com', 
                 name='Eugenius Mario', 
                 mobile_number='0123456789',
-                photo_url='https://lh3.googleusercontent.com/a/AAcHTtemk3r5u4n_ydV0VGKpvTguJUy1gvT4I6f2wFKsy5OWgPI=s96-c'
+                photo_url='https://lh3.googleusercontent.com/a/AAcHTtemk3r5u4n_ydV0VGKpvTguJUy1gvT4I6f2wFKsy5OWgPI=s96-c',
+                contacts = Contact.objects.all()
             ),
         )
         return user.pk

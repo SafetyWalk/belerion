@@ -63,3 +63,38 @@ class ManualUserAPIViewTest(TestCase):
             "status": "FAILED"
         }
         self.assertDictEqual(response.data, expected_response)
+
+    def test_create_manual_user_with_existing_google_user(self):
+        google_user_data = {
+            "email": "test@example.com",
+            "google_uid": "1",
+            "name": "Test User",
+            "mobile_number": "0123456789",
+            "photo_url": "https://lh3.googleusercontent.com/a/AAcHTtemk3r5u4n_ydV0VGKpvTguJUy1gvT4I6f2wFKsy5OWgPI=s96-c"
+        }
+
+        response = self.client.post('/api/v1/authentication/google-user/', google_user_data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(GoogleUser.objects.count(), 1)
+
+        manual_user_data = {
+            "email": "test@example.com",
+            "password": "TestPassword123",
+            "username": "test",
+            "first_name": "Test",
+            "last_name": "User",
+            "mobile_number": "0123456789",
+            "photo_url": "https://lh3.googleusercontent.com/a/AAcHTtemk3r5u4n_ydV0VGKpvTguJUy1gvT4I6f2wFKsy5OWgPI=s96-c"
+        }
+
+        response = self.client.post('/api/v1/authentication/manual-user/', manual_user_data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(GoogleUser.objects.count(), 1)
+        self.assertEqual(ManualUser.objects.count(), 0)
+        expected_response = {
+            "message": "You already have an account, try logging in with google",
+            "status": "FAILED"
+        }
+        self.assertDictEqual(response.data, expected_response)

@@ -63,20 +63,20 @@ Step untuk repository backend <br>
 
 ## URLs
 
-No | Service | Description | URL | Method
---- | --- | --- | --- | ---
-1 | Admin | Admin Page | `{{url}}/admin` | -
-2 | Authentication | Register Manual User | `{{url}}/api/v1/authentication/manual-user/` | GET, POST
-3 | Authentication | Register Google User | `{{url}}/api/v1/authentication/google-user/` | GET, POST
-4 | Authentication | Login Manual User | `{{url}}/api/v1/authentication/manual-user/login/` | POST
-5 | Authentication | Login Google User | `{{url}}/api/v1/authentication/google-user/login/` | POST
-6 | Authentication | Edit Password Manual User | `{{url}}/api/v1/authentication/manual-user/edit/password/` | PUT
-7 | Profile | Get Profile Manual User | `{{url}}/api/v1/profile/manual-user/` | GET
-8 | Profile | Get Profile Google User | `{{url}}/api/v1/profile/google-user/` | GET
-9 | Contact | Create Contact Manual User | `{{url}}/api/v1/contact/manual-user/create/` | POST
-10 | Contact | Create Contact Google User | `{{url}}/api/v1/contact/google-user/create/` | POST
-11 | Contact | Get Contacts Manual User | `{{url}}/api/v1/contact/manual-user/` | POST
-12 | Contact | Get Contacts Google User | `{{url}}/api/v1/contact/google-user/` | POST
+Service | Description | URL | Method
+--- | --- | --- | ---
+Admin | Admin Page | `{{url}}/admin` | -
+Authentication | Register Manual User | `{{url}}/api/v1/authentication/manual-user/` | GET, POST
+Authentication | Register Google User | `{{url}}/api/v1/authentication/google-user/` | GET, POST
+Authentication | Login Manual User | `{{url}}/api/v1/authentication/manual-user/login/` | POST
+Authentication | Login Google User | `{{url}}/api/v1/authentication/google-user/login/` | POST
+Authentication | Edit Password Manual User | `{{url}}/api/v1/authentication/manual-user/edit/password/` | PUT
+Profile | Get Profile Manual User | `{{url}}/api/v1/profile/manual-user/` | GET
+Profile | Get Profile Google User | `{{url}}/api/v1/profile/google-user/` | GET
+Contact | Create Contact Manual User | `{{url}}/api/v1/contact/manual-user/create/` | POST
+Contact | Create Contact Google User | `{{url}}/api/v1/contact/google-user/create/` | POST
+Contact | Get Contacts Manual User | `{{url}}/api/v1/contact/manual-user/` | POST
+Contact | Get Contacts Google User | `{{url}}/api/v1/contact/google-user/` | POST
 
 
 

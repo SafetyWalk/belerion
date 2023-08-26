@@ -6,4 +6,4 @@ from contact.models import (
 @admin.register(Contact)
 class Contact(admin.ModelAdmin):
     fields = []
-    list_display = ['name', 'email', 'mobile_number', 'photo_url']
+    list_display = ['name', 'contact_email', 'mobile_number', 'photo_url']

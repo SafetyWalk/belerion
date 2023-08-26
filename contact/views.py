@@ -35,7 +35,7 @@ class ManualUserContactAPIView(generics.ListAPIView):
                         contact_list.append({
                             "id": contact.id,
                             "name": contact.name,
-                            "email": contact.email,
+                            "email": contact.contact_email,
                             "mobile_number": contact.mobile_number,
                             "photo_url": contact.photo_url
                         })
@@ -68,7 +68,7 @@ class GoogleUserContactAPIView(generics.ListAPIView):
                         contact_list.append({
                             "id": contact.id,
                             "name": contact.name,
-                            "email": contact.email,
+                            "email": contact.contact_email,
                             "mobile_number": contact.mobile_number,
                             "photo_url": contact.photo_url
                         })
@@ -81,3 +81,43 @@ class GoogleUserContactAPIView(generics.ListAPIView):
                 "message": "Invalid email or google uid",
                 "status": "FAILED"
             })
+
+class ManualUserCreateContactAPIView(generics.ListAPIView):
+    serializer_class = ManualUserContactSerializer
+
+    def get_queryset(self):
+        manual_users = ManualUser.objects.all()
+        return manual_users
+
+    def post(self, request, *args, **kwargs):
+        serializer = ManualUserLoginSerializer(data=request.data)
+        if serializer.is_valid():
+            # check if user exists
+            if ManualUser.objects.filter(email=serializer.data['email'], password=serializer.data['password']).exists():
+                user = ManualUser.objects.get(email=serializer.data['email'], password=serializer.data['password'])
+                # create new contact
+                contact = Contact.objects.create(
+                    manualuser=user,
+                    name=request.data['name'],
+                    contact_email=request.data['contact_email'],
+                    mobile_number=request.data['mobile_number'],
+                    photo_url=request.data['photo_url']
+                )
+                contact.save()
+                # add contact to user
+                user.contacts.add(contact)
+                return Response({
+                    "message": "Create contact success", 
+                    "status": "SUCCESS",
+                    "data": {
+                        "id": contact.id,
+                        "name": contact.name,
+                        "email": contact.contact_email,
+                        "mobile_number": contact.mobile_number,
+                        "photo_url": contact.photo_url
+                    }
+                })
+        return Response({
+            "message": "Invalid email or password",
+            "status": "FAILED"
+        })

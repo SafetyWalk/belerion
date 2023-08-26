@@ -77,10 +77,10 @@ Contact | Create Contact Manual User | `{{url}}/api/v1/contact/manual-user/creat
 Contact | Create Contact Google User | `{{url}}/api/v1/contact/google-user/create/` | POST | -
 Contact | Get Contacts Manual User | `{{url}}/api/v1/contact/manual-user/` | POST | -
 Contact | Get Contacts Google User | `{{url}}/api/v1/contact/google-user/` | POST | -
-Contact | Edit Contact Manual User | `{{url}}/api/v1/contact/manual-user/edit/<contact_id>/` | PUT | -
-Contact | Edit Contact Google User | `{{url}}/api/v1/contact/google-user/edit/<contact_id>/` | PUT | -
-
-
+Contact | Edit Contact Manual User | `{{url}}/api/v1/contact/manual-user/edit/` | PUT | -
+Contact | Edit Contact Google User | `{{url}}/api/v1/contact/google-user/edit/` | PUT | -
+Contact | Delete Contact Manual User | `{{url}}/api/v1/contact/manual-user/delete/` | DELETE | -
+Contact | Delete Contact Google User | `{{url}}/api/v1/contact/google-user/delete/` | DELETE | -
 
 ## Deployment
 

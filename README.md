@@ -63,20 +63,25 @@ Step untuk repository backend <br>
 
 ## URLs
 
-Service | Description | URL | Method
---- | --- | --- | ---
-Admin | Admin Page | `{{url}}/admin` | -
-Authentication | Register Manual User | `{{url}}/api/v1/authentication/manual-user/` | GET, POST
-Authentication | Register Google User | `{{url}}/api/v1/authentication/google-user/` | GET, POST
-Authentication | Login Manual User | `{{url}}/api/v1/authentication/manual-user/login/` | POST
-Authentication | Login Google User | `{{url}}/api/v1/authentication/google-user/login/` | POST
-Authentication | Edit Password Manual User | `{{url}}/api/v1/authentication/manual-user/edit/password/` | PUT
-Profile | Get Profile Manual User | `{{url}}/api/v1/profile/manual-user/` | GET
-Profile | Get Profile Google User | `{{url}}/api/v1/profile/google-user/` | GET
-Contact | Create Contact Manual User | `{{url}}/api/v1/contact/manual-user/create/` | POST
-Contact | Create Contact Google User | `{{url}}/api/v1/contact/google-user/create/` | POST
-Contact | Get Contacts Manual User | `{{url}}/api/v1/contact/manual-user/` | POST
-Contact | Get Contacts Google User | `{{url}}/api/v1/contact/google-user/` | POST
+Service | Description | URL | Method | Payload
+--- | --- | --- | --- | ---
+Admin | Admin Page | `{{url}}/admin` | - | -
+Authentication | Register Manual User | `{{url}}/api/v1/authentication/manual-user/` | GET, POST | -
+Authentication | Register Google User | `{{url}}/api/v1/authentication/google-user/` | GET, POST | -
+Authentication | Login Manual User | `{{url}}/api/v1/authentication/manual-user/login/` | POST | 
+`{ "email": "string", "password": "string" }`
+Authentication | Login Google User | `{{url}}/api/v1/authentication/google-user/login/` | POST |
+`{ "email": "string", "google_uid": "string" }`
+Authentication | Edit Password Manual User | `{{url}}/api/v1/authentication/manual-user/edit/password/` | PUT | 
+`{ "email": "string", "password": "string" }`
+Profile | Get Profile Manual User | `{{url}}/api/v1/profile/manual-user/` | GET |
+`{ "email": "string", "password": "string" }`
+Profile | Get Profile Google User | `{{url}}/api/v1/profile/google-user/` | GET |
+`{ "email": "string", "google_uid": "string" }`
+Contact | Create Contact Manual User | `{{url}}/api/v1/contact/manual-user/create/` | POST | -
+Contact | Create Contact Google User | `{{url}}/api/v1/contact/google-user/create/` | POST | -
+Contact | Get Contacts Manual User | `{{url}}/api/v1/contact/manual-user/` | POST | -
+Contact | Get Contacts Google User | `{{url}}/api/v1/contact/google-user/` | POST | -
 
 
 

@@ -161,3 +161,42 @@ class GoogleUserCreateContactAPIView(generics.ListAPIView):
             "message": "Invalid email or google uid",
             "status": "FAILED"
         })
+
+class ManualUserContactEditAPIView(generics.ListAPIView):
+    serializer_class = ManualUserContactSerializer
+
+    def get_queryset(self):
+        manual_users = ManualUser.objects.all()
+        return manual_users
+
+    def put(self, request, *args, **kwargs):
+        serializer = ManualUserLoginSerializer(data=request.data)
+        if serializer.is_valid():
+            # check if user exists
+            if ManualUser.objects.filter(email=serializer.data['email'], password=serializer.data['password']).exists():
+                user = ManualUser.objects.get(email=serializer.data['email'], password=serializer.data['password'])
+                # check if contact exists
+                # get [id] from url <int:pk>
+                if Contact.objects.filter(id=request.data['contact_id']).exists():
+                    contact = Contact.objects.get(id=request.data['contact_id'])
+                    # update contact
+                    contact.name = request.data['name']
+                    contact.contact_email = request.data['contact_email']
+                    contact.mobile_number = request.data['mobile_number']
+                    contact.photo_url = request.data['photo_url']
+                    contact.save()
+                    return Response({
+                        "message": "Edit contact success", 
+                        "status": "SUCCESS",
+                        "data": {
+                            "id": contact.id,
+                            "name": contact.name,
+                            "email": contact.contact_email,
+                            "mobile_number": contact.mobile_number,
+                            "photo_url": contact.photo_url
+                        }
+                    })
+        return Response({
+            "message": "Invalid email or password",
+            "status": "FAILED"
+        })

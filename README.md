@@ -63,20 +63,22 @@ Step untuk repository backend <br>
 
 ## URLs
 
-Service | URL | Type
---- | --- | ---
-Admin | `localhost:8000/admin` | Special 
-Authentication | `{{url}}/api/v1/authentication/manual-user/` | GET, POST 
-Authentication | `{{url}}/api/v1/authentication/google-user/` | GET, POST
-Authentication | `{{url}}/api/v1/authentication/manual-user/login/` | POST
-Authentication | `{{url}}/api/v1/authentication/google-user/login/` | POST
-Authentication | `{{url}}/api/v1/authentication/manual-user/edit/password/` | PUT
-Profile | `{{url}}/api/v1/profile/manual-user/` | GET
-Profile | `{{url}}/api/v1/profile/google-user/` | GET
-Contact | `{{url}}/api/v1/contact/manual-user/create/` | POST
-Contact | `{{url}}/api/v1/contact/google-user/create/` | POST
-Contact | `{{url}}/api/v1/contact/manual-user/` | POST
-Contact | `{{url}}/api/v1/contact/google-user/` | POST
+No | Service | URL | Type
+--- | --- | --- | --- 
+1 | Admin | `{{url}}/admin` | Special
+2 | Authentication | `{{url}}/api/v1/authentication/manual-user/` | GET, POST
+3 | Authentication | `{{url}}/api/v1/authentication/google-user/` | GET, POST
+4 | Authentication | `{{url}}/api/v1/authentication/manual-user/login/` | POST
+5 | Authentication | `{{url}}/api/v1/authentication/google-user/login/` | POST
+6 | Authentication | `{{url}}/api/v1/authentication/manual-user/edit/password/` | PUT
+7 | Profile | `{{url}}/api/v1/profile/manual-user/` | GET
+8 | Profile | `{{url}}/api/v1/profile/google-user/` | GET
+9 | Contact | `{{url}}/api/v1/contact/manual-user/create/` | POST
+10 | Contact | `{{url}}/api/v1/contact/google-user/create/` | POST
+11 | Contact | `{{url}}/api/v1/contact/manual-user/` | POST
+12 | Contact | `{{url}}/api/v1/contact/google-user/` | POST
+
+
 
 ## Deployment
 

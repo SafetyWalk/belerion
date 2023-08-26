@@ -7,7 +7,8 @@ from authentication.models import (
 from user_profile.serializers import ( 
     ManualUserProfileSerializer,
     GoogleUserProfileSerializer,
-    ManualUserEditProfileSerializer
+    ManualUserEditProfileSerializer,
+    GoogleUserEditProfileSerializer
 )
 
 class ManualUserProfileAPIView(generics.ListAPIView):
@@ -107,5 +108,40 @@ class ManualUserEditProfileAPIView(generics.ListAPIView):
                 })
         return Response({
             "message": "Invalid email or password",
+            "status": "FAILED"
+        })
+
+class GoogleUserEditProfileAPIView(generics.ListAPIView):
+    serializer_class = GoogleUserProfileSerializer
+
+    def get_queryset(self):
+        google_users = GoogleUser.objects.all()
+        return google_users
+
+    def put(self, request, *args, **kwargs):
+        serializer = GoogleUserEditProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            # check if user exists
+            if GoogleUser.objects.filter(email=serializer.data['email'], google_uid=serializer.data['google_uid']).exists():
+                user = GoogleUser.objects.get(email=serializer.data['email'], google_uid=serializer.data['google_uid'])
+                user.name = serializer.data['name']
+                user.mobile_number = serializer.data['mobile_number']
+                user.photo_url = serializer.data['photo_url']
+                user.save()
+                user_data = {
+                    "id": user.id,
+                    "email": user.email,
+                    "google_uid": user.google_uid,
+                    "name": user.name,
+                    "mobile_number": user.mobile_number,
+                    "photo_url": user.photo_url
+                }
+                return Response({
+                    "message": "Edit profile success", 
+                    "status": "SUCCESS",
+                    "data": user_data
+                })
+        return Response({
+            "message": "Invalid email or google uid",
             "status": "FAILED"
         })

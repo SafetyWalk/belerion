@@ -24,8 +24,9 @@ class ManualUserAPIView(generics.ListAPIView):
     def post(self, request, *args, **kwargs):
         serializer = RegisterManualUserSerializer(data=request.data)
         if serializer.is_valid():
+            user_email = serializer.validated_data.get('email')
             # check if exists
-            if not ManualUser.objects.filter(email=serializer.data['email']).exists():
+            if not ManualUser.objects.filter(email=user_email).exists():
                 serializer.save()
                 return Response(serializer.data)
             return Response({
@@ -44,8 +45,9 @@ class GoogleUserAPIView(generics.ListAPIView):
     def post(self, request, *args, **kwargs):
         serializer = RegisterGoogleUserSerializer(data=request.data)
         if serializer.is_valid():
+            user_email = serializer.validated_data.get('email')
             # check if exists
-            if not GoogleUser.objects.filter(email=serializer.data['email']).exists():
+            if not GoogleUser.objects.filter(email=user_email).exists():
                 serializer.save()
                 return Response(serializer.data)
             return Response({

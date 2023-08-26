@@ -11,7 +11,7 @@ class ManualUser(models.Model):
     last_name = models.CharField(max_length=200)
     mobile_number = models.CharField(max_length=200)
     photo_url = models.CharField(max_length=500)
-    contacts = models.ManyToManyField(Contact)
+    contacts = models.ManyToManyField(Contact, blank=True)
 
     def __str__(self):
         return self.email
@@ -38,7 +38,7 @@ class GoogleUser(models.Model):
     name = models.CharField(max_length=200)
     mobile_number = models.CharField(max_length=200)
     photo_url = models.CharField(max_length=200)
-    contacts = models.ManyToManyField(Contact)
+    contacts = models.ManyToManyField(Contact, blank=True)
 
     def __str__(self):
         return self.email

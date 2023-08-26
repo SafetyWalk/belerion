@@ -5,11 +5,8 @@ from authentication.models import (
     GoogleUser
 )
 from authentication.serializers import ( 
-    ManualUserSerializer,
-    GoogleUserSerializer,
     ManualUserLoginSerializer,
     GoogleUserLoginSerializer,
-    ManualUserEditPasswordSerializer
 )
 from contact.models import (
     Contact
@@ -18,6 +15,39 @@ from contact.serializers import (
     ManualUserContactSerializer,
     GoogleUserContactSerializer,
 )
+
+class ManualUserContactAPIView(generics.ListAPIView):
+    serializer_class = ManualUserContactSerializer
+
+    def get_queryset(self):
+        manual_users = ManualUser.objects.all()
+        return manual_users
+
+    def post(self, request, *args, **kwargs):
+            serializer = ManualUserLoginSerializer(data=request.data)
+            if serializer.is_valid():
+                # check if user exists
+                if ManualUser.objects.filter(email=serializer.data['email'], password=serializer.data['password']).exists():
+                    user = ManualUser.objects.get(email=serializer.data['email'], password=serializer.data['password'])
+                    contacts = Contact.objects.filter(manualuser=user)
+                    contact_list = []
+                    for contact in contacts:
+                        contact_list.append({
+                            "id": contact.id,
+                            "name": contact.name,
+                            "email": contact.email,
+                            "mobile_number": contact.mobile_number,
+                            "photo_url": contact.photo_url
+                        })
+                    return Response({
+                        "message": "Get contact success", 
+                        "status": "SUCCESS",
+                        "data": contact_list
+                    })
+            return Response({
+                "message": "Invalid email or password",
+                "status": "FAILED"
+            })
 
 class GoogleUserContactAPIView(generics.ListAPIView):
     serializer_class = GoogleUserContactSerializer

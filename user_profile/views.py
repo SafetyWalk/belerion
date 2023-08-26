@@ -87,6 +87,7 @@ class ManualUserEditProfileAPIView(generics.ListAPIView):
             # check if user exists
             if ManualUser.objects.filter(email=serializer.data['email'], password=serializer.data['password']).exists():
                 user = ManualUser.objects.get(email=serializer.data['email'], password=serializer.data['password'])
+                user.username = serializer.data['username']
                 user.first_name = serializer.data['first_name']
                 user.last_name = serializer.data['last_name']
                 user.mobile_number = serializer.data['mobile_number']
@@ -94,6 +95,7 @@ class ManualUserEditProfileAPIView(generics.ListAPIView):
                 user.save()
                 user_data = {
                     "id": user.id,
+                    "username": user.username,
                     "email": user.email,
                     "password": user.password,
                     "first_name": user.first_name,

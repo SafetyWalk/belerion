@@ -9,7 +9,9 @@ from authentication.serializers import (
     GoogleUserSerializer,
     ManualUserLoginSerializer,
     GoogleUserLoginSerializer,
-    ManualUserEditPasswordSerializer
+    ManualUserEditPasswordSerializer,
+    RegisterManualUserSerializer,
+    RegisterGoogleUserSerializer,
 )
 
 class ManualUserAPIView(generics.ListAPIView):
@@ -20,10 +22,16 @@ class ManualUserAPIView(generics.ListAPIView):
         return manual_users
 
     def post(self, request, *args, **kwargs):
-        serializer = ManualUserSerializer(data=request.data)
+        serializer = RegisterManualUserSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+            # check if exists
+            if not ManualUser.objects.filter(email=serializer.data['email']).exists():
+                serializer.save()
+                return Response(serializer.data)
+            return Response({
+                "message": "User with email already exists",
+                "status": "FAILED"
+            })
         return Response(serializer.errors)
 
 class GoogleUserAPIView(generics.ListAPIView):
@@ -34,10 +42,16 @@ class GoogleUserAPIView(generics.ListAPIView):
         return google_users
 
     def post(self, request, *args, **kwargs):
-        serializer = GoogleUserSerializer(data=request.data)
+        serializer = RegisterGoogleUserSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+            # check if exists
+            if not GoogleUser.objects.filter(email=serializer.data['email']).exists():
+                serializer.save()
+                return Response(serializer.data)
+            return Response({
+                "message": "User with email already exists",
+                "status": "FAILED"
+            })
         return Response(serializer.errors)
 
 class ManualUserLoginAPIView(generics.ListAPIView):

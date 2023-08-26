@@ -17,7 +17,7 @@ class GoogleUserProfileSerializer(serializers.ModelSerializer):
 class ManualUserEditProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = ManualUser
-        fields = ['email', 'password', 'first_name', 'last_name', 'mobile_number', 'photo_url']
+        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'mobile_number', 'photo_url']
 
 class GoogleUserEditProfileSerializer(serializers.ModelSerializer):
     class Meta:

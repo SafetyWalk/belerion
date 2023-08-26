@@ -121,3 +121,43 @@ class ManualUserCreateContactAPIView(generics.ListAPIView):
             "message": "Invalid email or password",
             "status": "FAILED"
         })
+
+class GoogleUserCreateContactAPIView(generics.ListAPIView):
+    serializer_class = GoogleUserContactSerializer
+
+    def get_queryset(self):
+        google_users = GoogleUser.objects.all()
+        return google_users
+
+    def post(self, request, *args, **kwargs):
+        serializer = GoogleUserLoginSerializer(data=request.data)
+        if serializer.is_valid():
+            # check if user exists
+            if GoogleUser.objects.filter(email=serializer.data['email'], google_uid=serializer.data['google_uid']).exists():
+                user = GoogleUser.objects.get(email=serializer.data['email'], google_uid=serializer.data['google_uid'])
+                # create new contact
+                contact = Contact.objects.create(
+                    googleuser=user,
+                    name=request.data['name'],
+                    contact_email=request.data['contact_email'],
+                    mobile_number=request.data['mobile_number'],
+                    photo_url=request.data['photo_url']
+                )
+                contact.save()
+                # add contact to user
+                user.contacts.add(contact)
+                return Response({
+                    "message": "Create contact success", 
+                    "status": "SUCCESS",
+                    "data": {
+                        "id": contact.id,
+                        "name": contact.name,
+                        "email": contact.contact_email,
+                        "mobile_number": contact.mobile_number,
+                        "photo_url": contact.photo_url
+                    }
+                })
+        return Response({
+            "message": "Invalid email or google uid",
+            "status": "FAILED"
+        })
